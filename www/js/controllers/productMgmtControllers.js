@@ -170,6 +170,7 @@
             }, function(err) {
               console.err(err);
             });*/
+            // new line to be added
         };
         
         /*$scope.getLibPicture = function(){
