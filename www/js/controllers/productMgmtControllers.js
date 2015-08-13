@@ -114,7 +114,7 @@
                 //alert("http://localhost:8888/kitaki/product/productImage/productId/"+$scope.products[0].product_id);
             });
              
-           /* $scope.products=[{product_name:"a", product_id:1},{product_name:"b", product_id:2},{product_name:"c", product_id:3},{product_name:"d", product_id:4},{product_name:"e", product_id:5},{product_name:"g", product_id:6},{product_name:"h", product_id:7},{product_name:"i", product_id:8}];*/
+           
         }
         $scope.getProductsForSeller();
         
