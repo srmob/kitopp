@@ -1,0 +1,46 @@
+<ion-modal-view style="width: 80%; height: 40%; top: 30%; left: 10%; right: 15%; bottom: 15%;"> 
+  <ion-header-bar class="bar-assertive">
+    <h1 class="title" align-title="center" >Buyer Info</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeBuyerInfo()"><i class="icon ion-close-circled dark"></i>
+      </button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <div class="list">
+          <label class="item item-input">
+            <span class="input-label">Customer Name:</span>
+              {{orderDetails[0].customer_name}}
+          </label>
+          <label class="item item-input">
+            <span class="input-label">Customer Phone #:</span>
+              {{orderDetails[0].customer_phone}}
+          </label>         
+         <label class="item item-input">
+            <span class="input-label">Customer TIN #:</span>
+             {{orderDetails[0].customer_tin}}
+          </label>
+         <label class="item item-input">
+            <span class="input-label">Customer ST #:</span>
+              {{orderDetails[0].customer_st}}
+          </label> 
+        <label class="item item-input">
+            <span class="input-label">Customer CST #:</span>
+              {{orderDetails[0].customer_cst}}
+          </label>    
+           
+        <label class="item">
+            <span class="input-label">Shipping Address:</span>
+              {{orderDetails[0].shipping_address}}
+          </label>
+         <!--<label class="item item-input">
+            <span class="input-label">Expected Delivery:</span>
+              
+          </label>     
+        <label class="item item-input">
+            <span class="input-label">Tracking Number#:</span>
+              
+          </label>-->
+        </div>
+  </ion-content>
+</ion-modal-view>

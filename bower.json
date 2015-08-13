@@ -1,0 +1,11 @@
+{
+  "name": "HelloIonic",
+  "private": "true",
+  "devDependencies": {
+    "ionic": "driftyco/ionic-bower#1.0.0"
+  },
+  "dependencies": {
+    "angular-ui-utils": "~2.0.0",
+    "ion-autocomplete": "~0.2.3"
+  }
+}

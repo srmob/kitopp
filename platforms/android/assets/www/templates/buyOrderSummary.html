@@ -1,0 +1,40 @@
+<ion-view view-title="My Orders" cache-view="false" >
+   <form name="mainbuyerOrderForm">
+    <ion-nav-view name="menuContent"></ion-nav-view>
+    <ion-content padding="true" scroll="false">
+        <ion-scroll direction="y" style="width: 100% ;height: 100% !important;"> 
+            <div class="list" ng-repeat="(key,value) in orders | groupBy:'product_sub_catg_name'">
+                <span class="row item item-positive"> {{key | uppercase }} </span>
+                <div class="list card" ng-repeat="row in value" ng-form='rowOrderForm' name="rowOrderForm"> 
+                  <div class="item item-avatar item-light">
+                        <img ng-src="{{productImageUrl}}{{row.product_id}}/index/0">
+                        <h2>
+                          {{row.product_name}} 
+                          <span class="item-note" >[ ID: {{row.product_id | uppercase}} ]</span>
+                        </h2>
+                        <br><div class="item-text-wrap descEllip">{{row.product_desc}}</div>
+
+                      <br><span class="subdued royal">Lot Size:<b><u>{{row.product_lot_size}}</u></b></span>
+                      <span class="subdued royal">Price: <b>{{ row.order_price | currency:"&#8377;" }}</b></span>
+                  </div>
+                    <div class="item tabs tabs-secondary item-stable">
+                        <label class="tab-item item-input" ng-class="{ 'has-error-lr' : rowOrderForm.order_qty.$dirty && rowOrderForm.order_qty.$invalid, 'valid' : rowOrderForm.order_qty.$valid}"> 
+                            <span class="label positive" style="padding-left:0px; padding-right:0px"> Qty:</span>
+                            <br><span class="item-note" ng-show="rowOrderForm.order_qty.$invalid" style="color:maroon">(min 1) </span>
+                            <input type="number" ng-model="row.order_qty" value='{{row.order_qty}}' name="order_qty" min="1" maxlength="4" ng-pattern="onlyNumbers" required>
+                        </label>
+
+                        <span class="tab-item">
+                            <span class="label positive" style="padding-left:0px; padding-right:0px">Estimate:</span>
+                                 {{ row.order_price * row.order_qty | currency:"&#8377;"  }}
+                        </span>
+                    </div>
+                </div> 
+            </div>
+        </ion-scroll>
+    </ion-content>
+        <ion-footer-bar align-title="center" class="button-bar bar-balanced">
+        <button class="button button-clear" type="submit" ng-disabled="mainbuyerOrderForm.$invalid" ng-click="placeOrder()">Order Now</button>
+        </ion-footer-bar>
+    </form>
+</ion-view>

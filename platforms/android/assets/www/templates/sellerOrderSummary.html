@@ -1,0 +1,41 @@
+<ion-view view-title="{{ buyerName }} - Items Summary" >
+     <ion-nav-view name="menuContent"></ion-nav-view>
+       <ion-content padding="true" >
+         <table ng-table="tableParams" class="table assertive">
+            <tbody ng-repeat="group in $groups">
+            <tr class="ng-table-group">
+                <td colspan="{{$columns.length}}">
+                    <a href="" ng-click="group.$hideRows = !group.$hideRows">
+                        <span class="glyphicon dark" ng-class="{ 'glyphicon-chevron-right': group.$hideRows, 'glyphicon-chevron-down': !group.$hideRows }"></span>
+                        <strong>{{ group.value }}</strong>
+                    </a>
+                </td>
+            </tr>
+            <tr ng-hide="group.$hideRows" ng-repeat="row in group.data" >
+               
+                <td sortable="'orderId'" data-title="'Order ID'" class="dark"  href="browse.html">
+                    {{row.orderId}}
+                </td>
+                <td sortable="'uid_buyer'" data-title="'Buyer ID'" class="dark" href="#/app/showShops">
+                    {{row.uid_buyer}}
+                </td>
+                <td sortable="'ord_tot_amount'" data-title="'Amount'" class="dark">
+                    {{row.ord_tot_amount}}
+                </td>
+            </tr>
+            <tr>
+                <td class="text-success text-right"></td>
+                <td class="text-success text-right dark"><strong>Summary:</strong></td>
+                <td>{{calcSum(group.data)}}</td>
+            </tr>
+            </tbody>
+        </table>
+    
+        <div class="spacer" style="height: 40px;"></div>
+        <!--<a href="#/sellerOrdrBrwse" class="button button-balanced button-block">Order Now</a>-->
+    </ion-content>
+    <ion-footer-bar align-title="center" class="bar bar-footer">
+        <div class="title"><a href="#/sellerOrdrBrwse" ng-click="submitOrder(products)" class="button button-balanced button-block" style="border:none">Order Now</a></div>
+    </ion-footer-bar>
+
+</ion-view>

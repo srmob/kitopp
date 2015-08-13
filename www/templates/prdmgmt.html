@@ -1,0 +1,138 @@
+<ion-view view-title="Product Management" cache-view="false">
+    <ion-nav-buttons side="right">
+      <button class="button icon ion-ios-plus-empty button-clear button-balanced" ng-click="add()" ng-show="productFlag!='add'">Add</button>
+      <!--<button class="button icon ion-edit button-clear button-assertive" ng-click="edit()">Edit</button>-->
+    </ion-nav-buttons>
+    <form name="ProductMgmtForm"  class="simple-form">
+        <ion-content>
+            <!--PF={{productFlag}}-->
+            <div class="bar bar-header item-input-inset" ng-show="productFlag==0">
+                <label class="item-input-wrapper">
+                    <i class="icon ion-ios-search placeholder-icon"></i>
+                    <input type="search" placeholder="Search product" ng-model="searchProduct" >
+                    <!--<ion-autocomplete ng-model="model" />-->
+                </label>
+                <button class="button button-clear button-calm">
+                    Cancel
+                </button>
+            </div>
+          <!--{{userId}}-->
+            <div class="list list-inset" ng-repeat="data in products | orderBy: '-product_id' | filter:searchProduct | limitTo:5 " ng-show="productFlag==0">
+                <scroll direction="y"> 
+                    <a class="item item-thumbnail-left item-icon-right" ng-click="selectProductEdit({{data.product_id}})">
+                     <img class="full-image" ng-src="{{productImageUrl}}{{data.product_id}}/index/0"> <!--
+                      <img ng-src="/kitaki/product/productImage/productId/"+{{data.product_id}}>-->
+                      <h2>{{data.product_name}} <i class="icon ion-chevron-right"></i></h2> 
+                      <span class="item-note"> {{data.product_id}}</span>
+                    </a><!--<span class="badge badge-assertive"></span>-->
+                </scroll>
+            </div>
+          
+            <div class="list list-inset list-assertive" ng-show="productFlag=='add'">
+              <!--<label id = "" class="item item-input">
+                <span class="input-label">Product Id</span>
+                <span class="label col-75">{{product.id}}</span>
+                {{product.id}}
+              </label>-->
+              <label id = "" class="item item-input">
+                <span class="input-label">Product Image</span>
+                <img ng-src="{{imageURI}}" ng-show="imgURI !== undefined" ng-model="product.product_img_id1">
+                <img ng-show="imgURI === undefined" ng-src="http://placehold.it/70x50">
+                <button class="button button-small button-outline  button-assertive"ng-click="addMedia()">
+                        <i class="icon ion-ios-camera-outline"></i>
+                </button><!--<div class="spacer" style="width: 10px;"></div>
+                <button class="button button-small button-outline  button-royal"ng-click="getLibPicture()"> Add image <i class="icon ion-image royal"></i></button>-->
+              </label>
+                <!--IMG ID {{product.product_img_id1}} - {{imageURI}}-->
+              <label id = "" class="item item-input" ng-class="{ 'has-error-lr' : ProductMgmtForm.product_name.$dirty && ProductMgmtForm.product_name.$invalid, 'valid' : ProductMgmtForm.product_name.$valid}">
+                <span class="input-label label-calm">Product Name</span>
+                <input type="text" placeholder="Name" name="ProductMgmtForm.product_name" ng-model="product.name" min="1" maxlength="100" required>
+              </label>
+              <label id = ""class="item item-input" ng-class="{ 'has-error-lr' : ProductMgmtForm.product_desc.$dirty && ProductMgmtForm.product_desc.$invalid, 'valid' : ProductMgmtForm.product_desc.$valid}">
+                <span class="input-label">Description</span>
+                <input type="text" placeholder="Description.." name="ProductMgmtForm.product_desc" ng-model="product.desc" min="1" maxlength="200" required>
+              </label>
+              <!--<label id = "" class="item item-input">
+                <span class="input-label">Category</span>
+                <input type="text" placeholder="category" ng-model="product.catg" >
+              </label>-->
+              <label id = "" class="item item-input">
+                    <span class="input-label">Category</span>
+                  <select ng-model="product.product_catg_id" 
+                      ng-options="dept.product_catg_id as dept.product_catg_name for dept in productCatg | unique:'product_catg_name' | orderBy:'product_catg_name'"
+                      class="item item-select item-positive">
+                      <option value="" disabled default selected>Products category</option>
+              </select>
+                </label>
+              <!--<label id = "" class="item item-input">
+                <span class="input-label">Sub Category</span>
+                <input type="text" placeholder="subcategory" ng-model="product.subcatg">
+              </label>-->
+              <label id = "" class="item item-input item-text-wrap">
+                <span class="input-label">Sub Category</span>
+                <label class="select">
+                  <select ng-model="product.product_sub_catg_id" 
+                          ng-options="dept.product_sub_catg_id as dept.product_sub_catg_name for dept in productCatg | unique:'product_sub_catg_name' | orderBy:'product_sub_catg_name' | filter:product.product_catg_id"
+                          class="item item-select item-positive">
+                          <option value="" disabled default selected>Sub products category</option>
+                  </select>
+                </label>
+              </label>
+              <label id = "" class="item item-input item-text-wrap" ng-class="{ 'has-error-lr' : ProductMgmtForm.product_mfr_name.$dirty && ProductMgmtForm.product_mfr_name.$invalid, 'valid' : ProductMgmtForm.product_mfr_name.$valid}">
+                <span class="input-label ">Manufacturer Name</span>
+                <input type="text" placeholder="Mfr Name" name="ProductMgmtForm.product_mfr_name" ng-model="product.mfrName" min="1" maxlength="100" required>
+              </label>
+              <!--<label id = "" class="item item-input">
+                <span class="input-label">Lot Size</span>
+                <input type="number" placeholder="Lot Size" ng-model="product.lotsize">
+              </label>-->
+              <label id = "" class="item item-input" ng-class="{ 'has-error-lr' : ProductMgmtForm.product_qty.$dirty && ProductMgmtForm.product_qty.$invalid, 'valid' : ProductMgmtForm.product_qty.$valid}">
+                <span class="input-label">Min Qty</span>
+                <br><span class="item-note" ng-show="ProductMgmtForm.product_qty.$invalid" style="color:maroon">(min 1) </span>
+                <input type="number" placeholder="Min Qty" name="ProductMgmtForm.product_qty" ng-model="product.minQty" min="1" maxlength="4" ng-pattern="onlyNumbers" required>
+              </label>
+              <!--<label id = "" class="item item-input text">
+                <span class="input-label">Product Content</span>
+                <textarea placeholder="product content" rows="1" ng-model="product.content" ng-Required="true" name="content">
+                </textarea>
+              </label>-->
+              <!--<label id = "rounded" class="item item-input item-stacked-label">
+                <span class="input-label col col-30">Product Price</span>
+                <input type="number" ng-model="product.price_platinum"  placeholder="platinum" value='{{ product.price_platinum }}' min="0" max="4">
+                <input type="number" ng-model="product.price_gold" value='{{ product.price_gold }}' min="0" max="4" placeholder="Gold">
+                <input type="number" ng-model="product.price_silver"  placeholder="Silver" value='{{ product.price_silver }}' min="0" max="4">
+                   
+
+           
+              </label>-->
+               <label id = "" class="item-stacked-label">
+                <span class="input-label col col-30">Product Price</span>
+                    <label class="item item-input" ng-class="{ 'has-error-lr' : ProductMgmtForm.product_price_platinum.$dirty && ProductMgmtForm.product_price_platinum.$invalid, 'valid' : ProductMgmtForm.product_price_platinum.$valid}">
+                        <span class="input-label">Platinum</span>
+                        <input type="number" name="ProductMgmtForm.product_price_platinum" ng-model="product.price_platinum"  placeholder="platinum" value='{{ product.price_platinum }}' min="1" maxlength="4" ng-pattern="onlyNumbers" required>
+                  </label>
+                   <label  class="item item-input" ng-class="{ 'has-error-lr' : ProductMgmtForm.product_price_gold.$dirty && ProductMgmtForm.product_price_gold.$invalid, 'valid' : ProductMgmtForm.product_price_gold.$valid}">
+                        <span class="input-label">Gold</span>
+                        <input type="number" ng-model="product.price_gold"  name="ProductMgmtForm.product_price_gold" placeholder="gold" value='{{ product.price_platinum }}' min="1" maxlength="4" ng-pattern="onlyNumbers" required>
+                  </label>
+                  <label class="item item-input" ng-class="{ 'has-error-lr' : ProductMgmtForm.product_price_silver.$dirty && ProductMgmtForm.product_price_silver.$invalid, 'valid' : ProductMgmtForm.product_price_silver.$valid}">
+                        <span class="input-label" >Silver</span>
+                        <input type="number" style="border-color:red" ng-model="product.price_silver"  placeholder="silver" value='{{ product.price_platinum }}' name="ProductMgmtForm.product_price_silver" min="1" maxlength="4" ng-pattern="onlyNumbers" required>
+                  </label>
+                <!--<input type="number" ng-model="product.price_gold" value='{{ product.price_gold }}' min="0" max="4" placeholder="Gold">
+                <input type="number" ng-model="product.price_silver"  placeholder="Silver" value='{{ product.price_silver }}' min="0" max="4">-->
+                </label>
+            </div>
+        </ion-content>
+       
+    </form>
+    <ion-footer-bar align-title="left" class="bar-stable" ng-show="productFlag=='add'">
+        <div class="buttons" ng-click="resetProduct()">
+            <button class="button button-stable">Cancel</button>
+        </div>
+        <h1 class="title"></h1>
+        <div class="buttons" ng-click="addProduct(product)">
+            <button class="button button-balanced" type="submit" ng-disabled="ProductMgmtForm.$invalid">Save</button>
+        </div>
+    </ion-footer-bar>
+</ion-view>

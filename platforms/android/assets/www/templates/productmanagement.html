@@ -1,0 +1,101 @@
+<ion-view view-title="Product Management Form">
+    <ion-content>
+        
+     
+           <table>
+            <tr>
+           <td><button class="button" ng-click="addNew()">Add new</button>
+            <button class="button" ng-click="update()">update</button></td>
+                <td> <input type="text" placeholder="Find"/></td>
+            </tr>
+               
+            <tr>    
+            <td><label>Image</label>
+                <button class="button" ng-click="loadImage()">Click Img</button></td>
+                <td><input type="text" placeholder="browse Image"/></td>
+            </tr>
+               
+            <tr>
+                <td><label>Product ID</label></td>
+                <td><input type="number" ng-model="productId" disabled/></td>
+            </tr>  
+               
+               <tr>
+                <td><label>Product Desc</label></td>
+                <td><input type="text" ng-model="productDesc" placeholder="Description"/></td>
+            </tr> 
+               
+               <tr>
+                <td><label>Product Expiry</label></td>
+                <td><input type="date" ng-model="productExp" placeholder="dd/mm/yyyy"/></td>
+            </tr> 
+               
+               <tr>
+                <td><label>Product Category</label></td>
+                <td>
+                    <select ng-model="selected_category" 
+                        ng-options="category.id as (category.text) for category in productCategory">            
+                </select>
+                    </td>
+            </tr> 
+               
+               <tr>
+                <td><label>Sub-category</label></td>
+                 <td>
+                    <select ng-model="selected_subcategory" 
+                        ng-options="subcategory.id as (subcategory.text) for subcategory in subCategory">            
+                </select>
+                    </td>
+            </tr> 
+               
+               <tr>
+                <td><label>Manufacturer</label></td>
+                <td><input type="text" ng-model="manufacturer" placeholder="Mahalakshmi toys"/></td>
+            </tr> 
+               
+                <tr>
+                <td><label>Product Content</label></td> 
+                <td><textarea ng-model="productContent" placeholder="somecontext"></textarea></td>
+            </tr> 
+               
+                <tr>
+                <td><label>Hazardous Item</label></td>
+                <td><input type="radio" ng-model="hazardous" value="yes"/>yes
+                    <input type="radio" ng-model="hazardous" value="no"/>no
+                    </td>
+            </tr> 
+               
+               <tr>
+                <td><label>Product Price</label></td>
+                <td>
+                    
+                <select ng-model="selected_price" 
+                        ng-options="price.price as (price.text) for price in productPrice">  
+                   <option value="" disabled default selected>Price Category</option> 
+                    <input type="text" value="{{selected_price}}"></input>
+                </select>
+                   
+                    
+               <!--<pre>{{selected_price}}</pre>-->
+                   
+              </td>
+            </tr> 
+               
+               <tr>
+                <td><label>Product Lot Size</label></td>
+                <td><input type="number" ng-model="productLotSize" placeholder="25"/></td>
+            </tr> 
+               
+               <tr>
+                <td><label>Product Min Qty</label></td>
+                <td>
+                <input type="number" ng-model="productMinQty" placeholder="12" />
+                <button class="button" ng-click="refresh()">Reset</button></td>
+                    
+            </tr> 
+               
+           </table>
+           
+        
+    </ion-content>
+</ion-view>

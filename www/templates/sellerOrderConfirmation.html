@@ -1,0 +1,91 @@
+<ion-view view-title="Order Confirmation and Shipping Details" class="title text-wrap" cache-view="false" >
+     <!-- <ion-nav-view name="menuContent"></ion-nav-view>-->
+
+<ion-content padding="true" scroll="true">
+      <!-- OID- {{orderItemDetails}}-->
+        <div style="height: 300px">
+            <ion-scroll direction="y" style="width: 100% ;height: 100% !important;"> 
+                <div class="list" ng-repeat="row in orderItemDetails">
+                      <div class="item item-avatar-right item-light">
+                        <img  ng-src="{{productImageUrl}}{{row.product_id}}/index/0"> 
+                        
+                        <h2>
+                            {{row.product_name}} 
+                            <span class="item-note" >[ ID: {{row.product_id | uppercase}} ]</span>
+                        </h2>
+                        <br><div class="item-text-wrap">{{row.product_description }}</div>
+                            <br><span class="subdued positive">    Lot Size: </span>
+                            <span class="subdued dark">
+                             <b>{{row.lot_size}}</b></span>
+                            <span class="subdued positive">        Price: </span>
+                            <span class="subdued dark">  <b>{{row.price | currency:"&#8377;" : 2 }}</b></span>
+                      </div>
+                        <div class="item tabs tabs-secondary item-clear" >
+                            <span class="tab-item" >
+                                <b><span class="label positive" style="padding-left:0px; padding-right:0px">Qty:</span>
+                                </b><span class="subdued dark"><b>{{ row.order_qty }}</b></span>
+                            </span>
+                            <span class="tab-item">
+                                <b><span class="label positive" style="padding-left:0px; padding-right:0px">Estimate:</span>                                              <span class="subdued dark">   {{ row.price * row.order_qty | currency:"&#8377;" : 2}}</span>
+                                </b>
+                            </span>
+                        </div>     
+                </div> 
+            </ion-scroll>
+        </div>
+    </ion-content>
+      <!--   <div class="spacer" style="height: 0px;"></div>
+       <div class="list" style="position: absolute; bottom: 20px; width: 100%">
+          <label class="item item-input">
+            <span class="input-label">Customer Name:</span>
+              {{orderDetails[0].customer_name}}
+          </label>
+          <label class="item item-input">
+            <span class="input-label">Customer Phone #:</span>
+              {{orderDetails[0].customer_phone}}
+          </label>         
+         <label class="item item-input">
+            <span class="input-label">Customer TIN #:</span>
+             {{orderDetails[0].customer_tin}}
+          </label>
+         <label class="item item-input">
+            <span class="input-label">Customer ST #:</span>
+              {{orderDetails[0].customer_st}}
+          </label> 
+        <label class="item item-input">
+            <span class="input-label">Customer CST #:</span>
+              {{orderDetails[0].customer_cst}}
+          </label>    
+           
+        <label class="item item-input">
+            <span class="input-label">Shipping Address:</span>
+              {{orderDetails[0].shipping_address}}
+          </label>
+         <label class="item item-input">
+            <span class="input-label">Expected Delivery:</span>
+              
+          </label>     
+        <label class="item item-input">
+            <span class="input-label">Tracking Number#:</span>
+              
+          </label>
+        </div>-->
+ 
+    <ion-footer-bar align-title="left" class="bar-stable">
+      <div class="button button-bar button-clear" >
+        <button class="button button-balanced" ng-click="modal.show()">Buyer<i class="icon icon-small ion-ios-information-outline dark small"></i></button>
+        <button class="button button-small button-balanced" ng-click="confirmOrderProcess(orderDetails[0].customer_id,orderDetails[0].order_id)" >Confirm <!--<i class="icon icon-small ion-bag dark"></i> --></button>
+        <button class="button button-small button-royal" ng-click="alertWIP()"><i class="icon ion-email dark"></i></button>
+        <button class="button button-small button-royal" ng-click="alertWIP()"><i class="icon ion-printer dark"></i></button>
+      </div>
+      <h1 class="title"></h1>
+      <div class="buttons button-royal" ng-click="">
+       
+      </div>
+      <h1 class="title"></h1>
+       <div class="buttons button-royal" ng-click="">
+        
+      </div>
+    </ion-footer-bar>
+
+</ion-view>

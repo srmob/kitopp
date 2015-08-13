@@ -1,0 +1,76 @@
+<ion-view view-title=" Order# {{orderDetails[0].order_id}} Summary " >
+     <!-- <ion-nav-view name="menuContent"></ion-nav-view>-->
+    <ion-content padding="true" scroll="false">
+        <div style="height: 300px"> 
+            <ion-scroll direction="y" style="width: 100% ;height: 100% !important;"> 
+                <div class="list" ng-repeat="row in orderItemDetails">
+                      <div class="item item-avatar-right item-light">
+                        <img data-ng-src="img/softtoy.jpeg">
+                        <label class="checkbox checkbox-dark"> 
+                           <input type="checkbox" ng-model="row.checked" ng-checked="{{row.checked}}" ng-change="updateCheckFlag(row.checked)" > 
+                           <!--<input type="checkbox" checklist-model="checkboxes.prodid" checklist-value="products[$index+1].product_id"> -->
+                        </label> 
+                        <h2>{{row.product_name}} [ {{row.product_id | uppercase }} ]</h2>
+                            <!--{{row.product_id}}-->
+                        {{row.product_description }}
+
+                          <br><span class="subdued">Lot Size:<b><u>{{row.lot_size}}</u></b></span>
+                          <span class="subdued">Price: <b>{{ row.price | currency:"&#8377;" }}</b></span>
+                      </div>
+                      <div class="item tabs tabs-secondary item-positive">
+                        <span class="tab-item item-input">
+                            <label class="item-input item-positive"> 
+                                 <span class="input-label">Qty:</span> 
+                                <input type="number" ng-model="row.order_qty  " value='{{ row.order_qty   }}'>
+                            </label>
+                        </span>
+
+                        <span class="tab-item">
+                          <b>Amount:{{ row.price * row.order_qty   | currency:"&#8377;" : 0 }} </b>
+                        </span>
+                      </div>
+                </div> 
+            </ion-scroll>
+        </div>
+    </ion-content>
+   
+    
+    <div class="spacer" style="height: 0px;"></div>
+    <div class="list" style="position: absolute; bottom: 20px; width: 100%">
+        <label class="item item-input">
+        <span class="input-label"><b>Customer Name:</b></span>
+          {{ orderDetails[0].customer_name }}
+        </label>
+        <label class="item item-input">
+        <span class="input-label"><b>Customer Phone #:</b></span>
+          {{ orderDetails[0].customer_phone }}
+        </label>         
+        <label class="item item-input">
+        <span class="input-label"><b>Customer TIN #:</b></span>
+          {{ orderDetails[0].customer_tin }}
+        </label>
+    </div>
+ 
+    <!--ion-footer-bar align-title="left" class="button-bar bar-balanced">
+        <div class="buttons">
+             <button class="button button-clear" ng-click="remindOrder()">Remind</button>
+        </div>
+        <div class="buttons"> 
+            <button class="button button-clear"  ng-click="processOrder()">Process</button> 
+        </div>
+    </ion-footer-bar>-->
+    <ion-footer-bar align-title="left" class="bar-stable">
+<!--      <div class="buttons button-balanced" ng-click="remindOrder()">
+        <button class="button button-dark">Remind</button>
+      </div>-->
+      <!--<h1 class="title"></h1>
+            <div class="buttons button-balanced" ng-hide="checkStatus == false" ng-click="processOrder(orderDetails,orderDetails[0].order_id)">
+                <button class="button button-balanced">Process</button>
+            </div>-->
+    <div ng-hide="checkStatus == false">
+      <ion-footer-bar class="button-bar bar-calm">
+        <button class="button button-clear" ng-click="processOrder(orderDetails,orderDetails[0].order_id)">Process</button>
+      </ion-footer-bar>
+    </div>
+    </ion-footer-bar>
+</ion-view>

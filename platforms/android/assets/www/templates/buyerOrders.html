@@ -1,0 +1,76 @@
+<ion-view view-title=" My Orders  " >
+       <ion-nav-view name="Items-Content"></ion-nav-view>
+       <ion-content padding="true"  class="has-header"> 
+         <ion-header-bar class="row bar-positive">
+             <div class="col col-15 item-text-wrap ">Order No</div>
+             <div class="col c0l-50 item-text-wrap ">Seller Name</div>
+             <div class="col col-20 ">Estimate</div>
+             <div class="col col-20 ">Status</div>
+         </ion-header-bar>
+         
+        <div class="spacer" style="height: 40px;"></div>
+         <div class="list">
+          <!--<a  ng-repeat="item in sellerOrders" class="bgColor item row " ng-click="viewOrderDetails()" >ng-href="#/app/seller/sellerOrderDetails"
+             <div class="col col-20 item-text-wrap">{{item.order_id}}</div>
+             <div class="col c0l-60 item-text-wrap">{{item.shop_name}}</div>
+             <div class="col col-20">{{item.order_tot_amount | currency : 'INR' : 0}}</div>
+             </a>-->
+             <div ng-repeat="(key,value) in orders | groupBy: 'shop_name' " >
+                 <span class="row item-divider icon-right"> {{key}}  <i class="icon ion-android-list"></i>  </span>
+                <div class="list" >
+                   <div  ng-repeat="item in value | orderBy:'order_tot_amount' | reverse" class="row item "> 
+                   
+                     <div class="col col-15 item-text-wrap">{{item.order_id}}</div>
+                     
+                     <div class="col c0l-50 item-text-wrap">{{item.shop_name}}</div>
+                     <div class="col col-20 ">{{item.order_tot_amount | currency:"&#8377;" : 0}}</div>
+                     <div class="col col-20 " ng-switch on="item.order_status">
+                         <div ng-switch-when="new"><i class="icon ion-flag positive" ></i></div>
+                         <div ng-switch-when="fulfilled"><i class="icon ion-flag royal" ></i></div>
+                         <div ng-switch-when="unfulfilled"><i class="icon ion-flag assertive" ></i></div>
+                         <div ng-switch-when="dispatched"><i class="icon ion-flag balanced" ></i></div>
+                     </div>
+                     <!--<div ng-switch on="item.user_category">
+                         <div ng-switch-when="Platinum"><i class="icon ion-person royal" ></i></div>
+                         <div ng-switch-when="Gold"><i class="icon ion-ios-person energized" ></i></div>
+                         <div ng-switch-when="Silver"><i class="icon ion-ios-person stable" ></i></div>
+                         <div ng-switch-when="Normal"><i class="icon ion-ios-person dark" ></i></div>
+                     </div>-->
+                    
+                     </div>
+                </div>
+             </div>
+             
+        </div>
+        </ion-content>
+        <ion-footer-bar class="button-bar bar-light">
+            <i class="icon ion-flag assertive" > partial</i> <div class="spacer" style="width: 10px;"></div><i class="icon ion-flag balanced" >dispatched</i><div class="spacer" style="width: 10px;"></div>
+            <i class="icon ion-flag positive" >new</i>
+      </ion-footer-bar>
+       <!--<ion-content padding="true" scroll="false" >
+     <ion-scroll direction="yx" style="width: 100% ;height: 100% !important;" scrollbar-x="false" delegate-handle="head" zooming="true" on-scroll="scrollMirror('list', 'head')">
+        <div class="item item-header item-calm row row-item min-705">
+          <div class="col col-left col-sep min-5 item-text-wrap"> ID</div>
+          <div class="col col-left col-sep min-20 item-text-wrap">Product Name</div>
+          <div class="col col-left col-sep min-50 item-text-wrap">Product desc</div>
+          <div class="col col-left col-sep min-10 item-text-wrap">Order Quantity</div>
+          <div class="col col-left col-sep min-50 item-text-wrap">Price</div>
+          <div class="col col-left col-sep min-50 item-text-wrap">Amount</div>
+
+        </div>
+
+        <div class="item row row-item  min-705" ng-repeat="row in orders | orderBy: '-order_id' : reverse">
+                  <div class="col item-dark col-left col-sep min-5 item-text-wrap" >{{row.order_id}}</div>
+                  <div class="col item-dark col-left col-sep min-20 item-text-wrap" >{{row.product_name}}</div>
+                  <div class="col item-dark col-left col-sep min-50 item-text-wrap">{{row.product_desc}}</div>
+                  <div class="col item-dark col-left col-sep min-10 item-text-wrap">{{ row.order_qty }}</div>
+                  <div class="col item-dark col-left col-sep min-50">{{row.order_price | currency : $ : 0}}</div>
+                  <div class="col item-dark col-left col-sep min-50">{{row.order_qty * row.order_price | currency : $ : 0 }}</div>
+          </div>
+        </ion-scroll>
+    
+        <div class="spacer" style="height: 40px;"></div>
+        
+    </ion-content>-->
+
+</ion-view>

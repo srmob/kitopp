@@ -1,0 +1,34 @@
+<ion-view view-title="{{ sellerName }} - Order Summary  " >
+      <ion-nav-view name="menuContent"></ion-nav-view>
+
+       <ion-content padding="true" scroll="false" >
+     <ion-scroll direction="yx" style="width: 100% ;height: 100% !important;" scrollbar-x="false" delegate-handle="head" zooming="true" on-scroll="scrollMirror('list', 'head')">
+        <div class="item item-header item-calm row row-item min-705">
+          <div class="col col-left col-sep min-5 item-text-wrap"> ID</div>
+          <div class="col col-left col-sep min-20 item-text-wrap">Product Name</div>
+          <div class="col col-left col-sep min-50 item-text-wrap">Product desc</div>
+          <div class="col col-left col-sep min-10 item-text-wrap">Lot Size</div>
+          <div class="col col-left col-sep min-10 item-text-wrap">Quantity</div>
+          <div class="col col-left col-sep min-50 item-text-wrap">Price</div>
+          <div class="col col-left col-sep min-50 item-text-wrap">Amount</div>
+
+        </div>
+
+        <div class="item row row-item  min-705" ng-repeat="row in orders | orderBy: '-order_id' : reverse">
+                  <div class="col item-dark col-left col-sep min-5 item-text-wrap" >{{row.product_id}}</div>
+                  <div class="col item-dark col-left col-sep min-20 item-text-wrap" >{{row.product_name}}</div>
+                  <div class="col item-dark col-left col-sep min-50 item-text-wrap">{{row.product_desc}}</div>
+                  <div class="col item-dark col-left col-sep min-10 item-text-wrap">{{ row.lot_size }}</div>
+                  <div class="col item-dark col-left col-sep min-10 item-text-wrap"><input type="number" ng-model="row.order_qty" value='{{ row.order_qty }}'></div>
+                  <div class="col item-dark col-left col-sep min-50">{{row.order_price | currency}}</div>
+                  <div class="col item-dark col-left col-sep min-50">{{row.order_qty * row.order_price | currency }}</div>
+          </div>
+        </ion-scroll>
+    
+        <div class="spacer" style="height: 40px;"></div>
+        <!--<a href="#/sellerOrdrBrwse" class="button button-balanced button-block">Order Now</a>-->
+    </ion-content>
+    <ion-footer-bar align-title="center" class="button-bar bar-balanced">
+        <button class="button button-clear"  ng-click="placeOrder()">Order Now</button>
+    </ion-footer-bar>
+</ion-view>

@@ -1,0 +1,8 @@
+2015-05-26 20:40:27.622 kitopp[1169:21396] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/shashi/Library/Developer/CoreSimulator/Devices/C09D9CC0-ECE4-49CD-9D70-C042066783F0/data/Containers/Data/Application/D4FAB318-9EB6-4068-B4BB-7565EF4BFF46/Library/Cookies/Cookies.binarycookies
+2015-05-26 20:40:27.824 kitopp[1169:21396] Apache Cordova native platform version 3.8.0 is starting.
+2015-05-26 20:40:27.825 kitopp[1169:21396] Multi-tasking -> Device: YES, App: YES
+2015-05-26 20:40:27.837 kitopp[1169:21396] Unlimited access to network resources
+2015-05-26 20:40:28.099 kitopp[1169:21396] [CDVTimer][keyboard] 0.065029ms
+2015-05-26 20:40:28.099 kitopp[1169:21396] [CDVTimer][TotalPluginStartup] 0.243008ms
+2015-05-26 20:40:28.521 kitopp[1169:21396] Resetting plugins due to page load.
+2015-05-26 20:40:28.804 kitopp[1169:21396] Finished load of: file:///Users/shashi/Library/Developer/CoreSimulator/Devices/C09D9CC0-ECE4-49CD-9D70-C042066783F0/data/Containers/Bundle/Application/4091CA24-856D-4D1F-8C17-1A6B5DCC683B/kitopp.app/www/index.html#/app/playlists

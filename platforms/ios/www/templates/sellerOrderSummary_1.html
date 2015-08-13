@@ -1,0 +1,45 @@
+<ion-view view-title="{{ sellerName }} - My Orders Summary" cache-view="false" >
+     <!--<ion-nav-view name="menuContent"></ion-nav-view>-->
+       <ion-content padding="true"  class="has-header"> 
+         <ion-header-bar class="row bar-positive">
+             <div class="col col-20 item-text-wrap ">Order No</div>
+             <div class="col c0l-60 item-text-wrap ">Name</div>
+             <div class="col col-40 ">Amount</div>
+         </ion-header-bar>
+         
+        <div class="spacer" style="height: 40px;"></div>
+         <div class="list">
+          <!--<a  ng-repeat="item in sellerOrders" class="bgColor item row " ng-click="viewOrderDetails()" >ng-href="#/app/seller/sellerOrderDetails"
+             <div class="col col-20 item-text-wrap">{{item.order_id}}</div>
+             <div class="col c0l-60 item-text-wrap">{{item.shop_name}}</div>
+             <div class="col col-20">{{item.order_tot_amount | currency : 'INR' : 0}}</div>
+             </a>-->
+             <div ng-repeat="(key,value) in sellerOrders | groupBy: 'shop_name'" >
+                 <span class="row item-divider icon-right"> {{key}}  <i class="icon ion-android-list"></i>  </span>
+                <div class="list" >
+                   <a  ng-repeat="item in value" class="row item " ng-click="viewOrderDetails({{item.order_id}},{{item.uid_buyer}})"  > 
+                    <!--ng-click="viewOrderDetails()"
+                    ng-href="#/app/seller/sellerOrderDetails/{{item.order_id}}"-->
+                     <div class="col col-20 item-text-wrap">{{item.order_id}}</div>
+                     <div class="col c0l-60 item-text-wrap">{{item.shop_name}}</div>
+                     <div class="col col-40 ">{{item.order_tot_amount | currency : 'INR' : 0}}</div>
+                     </a>
+                </div>
+             </div>
+             <!--<div ng-repeat="(key,value) in sellerOrders | groupBy: 'uid_buyer'">
+                 <span class="row item-divider icon-right">
+                     {{key}}  <i class="icon ion-ios-list-outline"></i> 
+                 </span>
+                <div class="list" >
+                   <a  ng-repeat="item in value" class="row item" ng-click="viewOrderDetails({{item.orderId}})">
+                    //href="#/app/seller/sellerOrderDetails/{{item.orderId}}"
+                     <div class="col col-20 item-text-wrap">{{item.orderId}}</div>
+                     <div class="col c0l-60 item-text-wrap">{{item.uid_buyer}}</div>
+                     <div class="col col-40 ">{{item.ord_tot_amount | currency : 'INR' : 0}}</div>
+                     </a>
+                </div>
+             </div>-->
+        </div>
+        </ion-content>
+
+</ion-view>

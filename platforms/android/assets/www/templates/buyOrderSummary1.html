@@ -1,0 +1,50 @@
+<ion-view view-title="My Orders" cache-view="false" >
+      <ion-nav-view name="menuContent"></ion-nav-view>
+
+       <ion-content padding="true" scroll="false" >
+     <ion-scroll direction="yx" style="width: 100% ;height: 100% !important;">
+       <div class="list" ng-repeat="(key,value) in orders | groupBy: 'product_sub_catg_name'">
+            <span class="row item-divider icon-right"> {{key}}  <i class="icon ion-android-list"></i>  </span>
+        
+            <div class="list card" ng-repeat="row in value">  
+    <!-- <div class="list card" ng-repeat="row in orders">-->
+         <div class="item item-avatar">
+            <img data-ng-src="img/softtoy.jpeg">
+            <h2>{{row.product_name}}</h2>
+            {{row.product_id}}
+            <br>{{row.product_desc}}
+            <br><span class="subdued">Lot Size:{{ row.product_lot_size}}</span>
+            <br><span class="subdued">Price: {{row.order_price | currency}}</span>
+          </div>
+
+          <div class="item tabs tabs-secondary">
+            <div class="tab-item item-input">
+              Qty: <input type="number" ng-model="row.order_qty" value='{{row.order_qty}}'>
+            </div>
+
+            <span class="tab-item">
+              Amount:{{ row.order_qty * row.order_price }}
+            </span>
+          </div>
+          <!--<div class="item item-avatar">
+             <img data-ng-src="img/softtoy.jpeg">
+              <h3> <div class="row">{{row.product_name}}</div></h3>
+              <p><div class="row">{{row.product_id}}</div></p>
+          </div>
+          <div class="item item-body">
+              {{row.product_desc}}
+              <span class="subdued">Lot Size:{{ row.product_min_qty}} </span>
+              <span class="subdued">Price: {{row.product_price | currency}} </span>
+          </div>
+          <div class="item tabs tabs-secondary">
+            Qty: <input type="number" ng-model="row.order_qty" value='{{ row.order_qty}}'>
+            Amount:{{ row.order_qty * row.product_price }} <br>
+          </div>-->
+          
+           </div></div>
+        </ion-scroll>
+    </ion-content>
+    <ion-footer-bar align-title="center" class="button-bar bar-balanced">
+        <button class="button button-clear"  ng-click="placeOrder()">Order Now</button>
+    </ion-footer-bar>
+</ion-view>

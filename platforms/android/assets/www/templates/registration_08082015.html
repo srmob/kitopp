@@ -1,0 +1,122 @@
+<ion-view view-title="Registration Form">
+    <div class="bar bar-header bar-dark">
+        <h1 class="title">User Registration1</h1>
+    </div>
+    <form name="userRegForm"  class="simple-form">
+        <ion-content class="has-header">
+         <script type="text/ng-template" id="genericMessages">  
+          <div class="form-error" ng-message="required">This field is required.</div>
+          <div class="form-error" ng-message="minlength">This field is must be at least 5 characters.</div>
+          <div class="form-error" ng-message="maxlength">This field is must be less than 50 characters</div>
+        </script> 
+      
+      
+            <label class="item item-input">
+                <span class="input-label">User Category</span>
+                <select ng-model="user.category" 
+                ng-options="cat.id as cat.name for cat in userCategory | orderBy: 'cat.name'"
+                ng-change="categoryCheckerGo()" class="item item-select item-calm">
+                <option value="" disabled default selected>-Select user category-</option>
+                </select>
+            </label>
+            <div ng-show="user.category== 2 || user.category== 1 || user.category== 3" class="list list-inset">
+                <label class="item item-input"  ng-class="{ 'has-error-lr' : userRegForm.phoneNum.$invalid, 'valid' : userRegForm.phoneNum.$valid}">
+                    <span class="input-label">Phone #</span>
+                    <input type="tel" name="phoneNum"  ng-model="user.phone" placeholder="9999999" required minlength="10" maxlength="10">
+                </label>
+                <div class="form-errors" ng-show="userRegForm.phoneNum.$error" ng-messages="userRegForm.phoneNum.$error" ng-messages-include="genericMessages">  
+                    <!--<div ng-message="minlength">Enter Valid Phone#</div>-->
+                    <!--<div ng-message="required"> Phone Number is blank</div>-->
+                </div>     
+
+                <label class="item item-input" ng-class="{ 'has-error-lr' : userRegForm.fName.$invalid, 'valid-lr' : userRegForm.fName.$valid}">
+                        <span class="input-label">Name</span>
+                        <input type="text" placeholder="Mahesh" ng-model="user.firstName" name="fName" maxlength="50" required>
+                </label>
+                <!--<div class="form-errors" ng-show="userRegForm.fName.$error" ng-messages="userRegForm.fName.$error"></div>  -->
+                <label class="item item-input" ng-class="{ 'has-error-lr' : userRegForm.lName.$invalid, 'valid' : userRegForm.fName.$valid}">
+                        <span class="input-label">Last Name</span>
+                        <input type="text" placeholder="Raj" ng-model="user.lastName" name="lName" maxlength="50"  required>
+                </label>
+                <div class="form-errors" ng-show="userRegForm.lName.$error" ng-messages="userRegForm.lName.$error"></div>
+                <label class="item item-input" ng-class="{ 'has-error-lr' : userRegForm.email.$invalid, 'valid-lr' : userRegForm.email.$valid}"> 
+                    <span class="input-label">email</span>
+                    <input type="Email" placeholder="email@example.com" ng-model="user.email"  name="email" required>
+                </label>
+            </div>
+            <div ng-show="user.category == 1" class="list list-inset">
+
+                <label class="item item-input">
+                    <span class="input-label">Date of Birth</span>
+                    <input type="date" ng-model="user.dob" >
+                </label>
+                
+               <!-- <label class="item">
+                    <span class="input-label"> Gender : </span> 
+                    <input type="radio" ng-model="user.gender" ng-value="m" />male
+                    <input type="radio" ng-model="user.gender" ng-value="f" />female
+                </label>-->
+                <label  class="item item-radio" >
+                    <span class="input-label"> Gender </span>
+                    <ion-radio ng-value="M" ng-model="user.gender" > Male </ion-radio>
+                    <ion-radio ng-value="F" ng-model="user.gender"> Female </ion-radio>
+                    <!--<input type="radio" name="M"><div class="item-content"> Male </div>
+                    <input type="radio" name="F"><div class="item-content"> FeMale </div>--><!--<input type="radio" ng-model="gender" value="male" />Male
+                    <input type="radio" ng-model="gender" value="female"/>Female-->
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">TIN Number</span>
+                    <input type="text" ng-model="user.tinNumber" placeholder="TIN Number" >
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">ST Number</span>
+                    <input type="text" ng-model="user.stNumber" placeholder="ST Number" >
+                </label>
+
+                <label class="item item-input">
+                    <span class="input-label">CST Number</span>
+                    <input type="text" ng-model="user.cstNumber" placeholder="CST Number" >
+                </label>
+
+                <label class="item item-input">
+                    <span class="input-label">PAN Number</span>
+                    <input type="text" ng-model="user.panNumber" placeholder="PAN " >
+                </label>
+
+                <label class="item item-input">
+                    <span class="input-label">UID Number</span>
+                    <input type="text" ng-model="user.uidNumber" placeholder="UID" >
+                </label>
+
+                <label class="item item-input">
+                    <span class="input-label">Photo</span>
+                    <input type="text" ng-model="user.photo" placeholder="Upload your image">
+                </label>
+                
+            </div> 
+            <!--<input type="submit" class="button button-block" value="Save"/>
+            <a href="#/tab/dash" class="button button-block">Cancel</a>-->
+  
+        <!--<div class="bar bar-footer bar-gray"  ng-show="user.category== 'buyer' || user.category== 'seller' || user.category== 'both'">
+          <div class="buttons" ng-click="">
+            <button class="button button-stable">Cancel</button>
+          </div>
+          <h1 class="title"></h1>
+          <div class="buttons" ng-click="registerUser(user)">
+            <button class="button button-balanced">Save</button>
+          </div>
+        </div>--> 
+        
+    </ion-content> 
+    
+    <ion-footer-bar align-title="left" class="bar-stable">
+                   <div class="buttons" ng-click="">
+            <button class="button button-stable">Cancel</button>
+          </div>
+          <h1 class="title"></h1>
+          <div class="buttons" ng-click="registerUser(user)" >
+            <button class="button button-balanced" type="submit" ng-disabled="userRegForm.$invalid" >Save</button>
+          </div>
+    </ion-footer-bar>
+    </form>
+</ion-view>

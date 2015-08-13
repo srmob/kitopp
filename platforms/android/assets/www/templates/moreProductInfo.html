@@ -1,0 +1,47 @@
+<ion-modal-view>
+
+<ion-header-bar class="bar-royal">
+   
+    <h1 class="title" align-title="center" > Product Info</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeProductInfo()"><i class="icon ion-close-circled dark"></i></button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <div class="list card">
+      <div class="item item-avatar">
+       <img ng-src="{{productImageUrl}}{{modalRow.product_id}}/index/0"> 
+        <h2> {{modalRow.product_name}} <span class="item-note" >[ ID: {{modalRow.product_id}} ]</span></h2>
+      </div>
+
+      <div class="item item-body">
+          <img class="full-image" ng-src="{{productImageUrl}}{{modalRow.product_id}}/index/0"> 
+        <p>
+          <div class="item-text-wrap"> {{ modalRow.product_desc }}  </div>
+        </p>
+      </div>
+      <div class="list">
+          <label class="item item-input">
+            <span class="input-label">Lot Size</span>
+              {{modalRow.product_min_qty}}
+          </label>
+          <label class="item item-input">
+            <span class="input-label"> Manufacturer Name</span>
+              {{modalRow.product_mfc_name}}
+          </label>         
+         <label class="item item-input">
+            <span class="input-label">Manufacturer Country:</span>
+             {{modalRow.product_mfc_country}}
+          </label>
+         <label class="item item-input">
+            <span class="input-label">Product Dimensions</span>
+              {{modalRow.product_width}} cm * {{modalRow.product_height}} cm * {{modalRow.product_depth}}
+          </label> 
+        <label class="item item-input">
+            <span class="input-label">Product Weight:</span>
+              {{modalRow.product_weight}}
+          </label>  
+        </div>
+    </div>
+  </ion-content>
+</ion-modal-view>

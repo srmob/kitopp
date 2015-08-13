@@ -1,0 +1,69 @@
+<ion-side-menus enable-menu-with-back-views="true">
+  <ion-side-menu-content>
+    <ion-nav-bar class="bar-dark">
+       <ion-nav-back-button>
+      </ion-nav-back-button>
+      <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon-round" menu-toggle="left">
+        </button>
+      </ion-nav-buttons>    
+         <ion-nav-buttons side="right">
+            <img data-ng-src="img/Kitaki_small.jpg">
+      </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-nav-view name="menuContent"></ion-nav-view>
+  </ion-side-menu-content>
+
+  <ion-side-menu side="left" width="200">
+    <ion-header-bar class="bar-dark">
+      <h1 class="title"><img data-ng-src="img/Kitaki.jpg"></h1>
+    </ion-header-bar>
+    <ion-content>
+      <ion-list>
+        <div ng-show="userType == 'buyer' || userType == 'both'"> 
+             <ion-item menu-close class="my-item item-light item-divider"  ng-style="{'line-height': 9 + 'px'}" ng-click="getSellersForBuyer()" href="#/app/showShops"  >
+              My Shops <!--ng-click="getSellersForBuyer()"-->
+           </ion-item>
+            <ion-item menu-close class="item-light"  href="#/app/buyerOrders" ng-style="{'line-height': 9 + 'px'}" ng-click="buyerOrders(userId)">
+              <i class="icon ion-clipboard"></i> My Orders <!--ng-click="buyerOrders(101)" -->
+           </ion-item>
+            <ion-item menu-close class="item-light">
+              <i class="icon ion-android-favorite-outline"></i> My Favorite shops
+           </ion-item>
+            <ion-item menu-close class="item-light" >
+              Business Requests
+           </ion-item>
+        </div>
+        <div ng-show="userType == 'seller' || userType == 'both' ">
+             <ion-item menu-close class="item-divider item-light" ng-style="{'line-height': 9 + 'px'}">
+              Seller's
+            </ion-item>
+            <ion-item menu-close class="item-light" href="#/app/sellerOrderSummary" ng-style="{'line-height': 9 + 'px'}" ng-click="viewSellerOrders(userId)">
+              Manage Orders  <!--href="#/app/sellerOrderSummary"-->
+           </ion-item>
+            <!--<ion-item menu-close class="item-light" href="#/app/sellerOrderSummary/productManage">
+              Manage Products
+           </ion-item>-->
+            <ion-item menu-close class="item-light" href="#/app/sellerOrderSummary/productManage1">
+              Manage Products
+           </ion-item>
+            <ion-item menu-close class="item-light" href="#/app/seller/manageCustomer">
+              Manage Customers
+           </ion-item>
+            <ion-item menu-close class="item-light" >
+              Manage RFQ
+            </ion-item>
+        </div>
+         <ion-item menu-close class="item-divider item-light" ng-style="{'line-height': 3 + 'px'}" href="#/app/browse" ng-click="viewSellerOrders(userId)">
+          About Us
+        </ion-item>
+        <ion-item menu-close class="item-divider item-light" ng-style="{'line-height': 2 + 'px'}" href="#/app/playlists" ng-click="viewSellerOrders(userId)">
+          FAQ
+        </ion-item>
+        <ion-item menu-close class="item-divider item-light" ng-style="{'line-height': 2 + 'px'}" ng-click="logout()">
+          <i class="icon ion-log-out"></i> Log out
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-side-menu>
+</ion-side-menus>

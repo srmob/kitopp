@@ -1,0 +1,80 @@
+<ion-view view-title=" Edit Product Details">
+    
+    <form name="ProductMgmtEdit"  novalidate class="simple-form">
+        <ion-content>
+            <!--{{product}} - {{userId}}-->
+           <!-- {{productCatg}} - {{userId}}-->
+            <div class="list list-inset">
+              <label id = "" class="item item-input">
+                    <span class="input-label">Product Id</span>
+                    <span class="label col-75">{{product.product_id}}</span>
+              </label>
+              <label id = "" class="item item-input">
+                <span class="input-label">Product Name</span>
+                <input type="text" placeholder="Name" ng-model="product.product_name" value="product.product_name">
+              </label>
+              <label id = ""class="item item-input">
+                <span class="input-label">Description</span>
+                <input type="text" placeholder="Description.." ng-model="product.product_desc" value="product.product_desc">
+              </label>
+              <label id = "" class="item item-input">
+                    <span class="input-label">Category</span>
+                <!--<input type="text" placeholder="category" ng-model="product.product_catg" >-->
+                    <select ng-options="dept.product_catg_name as dept.product_catg_name for dept in productCatg | unique:'product_catg_name' | orderBy:'product_catg_name'" ng-model="product.product_catg_name"
+                          class="item item-select item-calm">
+                          <!--<option ng-value="{{dept.product_catg_id}}" default selected>{{product.product_catg_name}}</option>-->
+                  </select>
+                  <!--<select  ng-options="dept.product_catg_name as dept.product_catg_name for dept in productCatg | unique:'product_catg_name' | orderBy:'product_catg_name'" ng-model="product.product_catg_name"></select>-->
+      
+              </label>
+              <label id = "" class="item item-input">
+                <span class="input-label">Sub Category</span>
+                <!--<input type="text" placeholder="subcategory" ng-model="product.subcatg">-->
+                <label class="select select-assertive">
+                  <select ng-model="product.product_sub_catg_name" 
+                          ng-options="dept.product_sub_catg_name as dept.product_sub_catg_name for dept in productCatg | unique:'product_sub_catg_name' | orderBy:'product_sub_catg_name' | filter:product.product_catg_name"
+                          class="item item-select item-calm">
+                          <!--<option value="" disabled default selected>{{product.product_sub_catg_name}}</option>-->
+                  </select>
+                </label>
+              </label>
+              <label id = "" class="item item-input">
+                <span class="input-label">Manufacturer Name</span>
+                <input type="text" placeholder="Mfr Name" ng-model="product.product_mfc_name">
+              </label>
+              <label id = "" class="item item-input">
+                <span class="input-label">Lot Size</span>
+                <input type="number" placeholder="Lot Size" ng-model="product.product_min_qty">
+              </label>
+              <!--<label id = "" class="item item-input">
+                <span class="input-label">Min Qty</span>
+                <input type="number" placeholder="Min Qty" ng-model="product.product_min_qty">
+              </label>-->
+             <!-- <label id = "" class="item item-input text">
+                <span class="input-label">Product Content</span>
+                <textarea placeholder="product content" rows="1" ng-model="product.content" ng-Required="true" name="content">
+                </textarea>
+              </label>-->
+                
+               <label id = "" class="item item-input item-stacked-label">
+                <span class="input-label col col-30">Product Price</span>
+                   <div ng-repeat="prices in product.price">
+                      <label class="item item-input" style="border:none">
+                       <span class="input-label">{{prices.category_name}}</span>
+                       <input type="number" ng-model="prices.product_price"  value='{{prices[$index].product_price}}' min="0" max="4">    
+                        </label>
+                   </div>
+                </label>
+            </div>
+        </ion-content>
+    </form>
+    <ion-footer-bar align-title="left" class="bar-stable">
+        <div class="buttons" ng-click="resetProduct()">
+            <button class="button button-stable">Cancel</button>
+        </div>
+        <h1 class="title"></h1>
+        <div class="buttons" ng-click="editProduct(product)">
+            <button class="button button-balanced">Save</button>
+        </div>
+    </ion-footer-bar>
+</ion-view>

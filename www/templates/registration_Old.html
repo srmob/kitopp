@@ -1,0 +1,94 @@
+<ion-view view-title="Registration Form">
+    <ion-content>
+        
+        
+       <form ng-submit="register()">
+            
+            <label class="item item-input item-floating-label"  >
+                <span class="input-label">First Name</span>
+                <input type="text" placeholder="Jack" ng-model="userFirstName" required>
+              
+            </label>
+           
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Last Name</span>
+                <input type="text" placeholder="Shepherd" ng-model="userLastName"required>
+            </label>
+           
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Date of Birth</span>
+                <input type="date" ng-model="userDateOfBirth" >
+            </label>
+           
+           
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Gender</span>
+            </label>
+                <label ng-repeat="g in gender"> 
+                <input id="genderId" type="radio" ng-model="$parent.type" value="{{g.id}}"/> {{g.type}}
+                </label>
+         
+           
+            <label class="item item-input item-floating-label"> 
+                <span class="input-label">Email</span>
+                <input type="Email" placeholder="email@example.com" ng-model="userEmail" >
+            </label>
+           
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Phone #</span>
+                <input type="tel" ng-model="userPhone"  >
+            </label>
+           
+            <label class="item item-input item-floating-label">
+                <span class="input-label">User Status</span>
+                <input type="text" ng-model="userStatus" >
+            </label>
+            <label class="item item-input item-floating-label">
+                <span class="input-label">TIN Number</span>
+                <input type="text" ng-model="userTinNumber" placeholder="TIN Number" >
+            </label>
+            <label class="item item-input item-floating-label">
+                <span class="input-label">ST Number</span>
+                <input type="text" ng-model="userSTNumber" placeholder="ST Number" >
+            </label>
+            <label class="item item-input item-floating-label">
+                <span class="input-label">CST Number</span>
+                <input type="text" ng-model="userCSTNumber" placeholder="CST Number" >
+            </label>
+            <label class="item item-input item-floating-label">
+                <span class="input-label">PAN Number</span>
+                <input type="text" ng-model="userPANNumber" placeholder="PAN " >
+            </label>
+            <label class="item item-input item-floating-label">
+                <span class="input-label">UID Number</span>
+                <input type="text" ng-model="userUIDNumber" placeholder="UID" >
+            </label>
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Photo</span>
+                <input type="text" ng-model="userPhoto" placeholder="Upload your image">
+            </label>
+        
+        <input type="submit" class="button button-block" value="Save"/>
+        <a href="#/tab/dash" class="button button-block">Cancel</a>
+       
+            
+                </form>
+        
+        
+    </ion-content>
+</ion-view>
+
+<!--<script id="error-list.html" type="text/ng-template">  
+    <div class="error" ng-message="required">
+      <i class="ion-information-circled"></i> 
+      This field is required!
+    </div>
+    <div class="error" ng-message="minlength">
+      <i class="ion-information-circled"></i> 
+      Minimum length of this field is 5 characters!
+    </div>
+    <div class="error" ng-message="maxlength">
+      <i class="ion-information-circled"></i> 
+      Maximum length of this field is 20 characters!
+    </div>
+  </script>  --> 

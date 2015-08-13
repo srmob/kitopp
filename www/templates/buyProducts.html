@@ -1,0 +1,182 @@
+<ion-view view-title="{{shopName}} " cache-view="false">
+   <form name="mainform" class="">
+    <ion-header-bar class="bar-subheader row">
+        <div class="col col-40">
+            <label >
+              <!--<div class="input-label">
+                Products
+              </div>-->{{ $stateParams.sellerName }}
+              <select ng-model="selectedDept" 
+                      ng-options="dept.product_catg_name for dept in productCatg | unique:'product_catg_name' | orderBy:'product_catg_name'"
+                      class="item item-select item-positive">
+                      <option value="" disabled default selected>Products category</option>
+              </select>
+            </label>
+        </div> 
+        <div class="spacer" style="width: 10px"></div>
+        <div class="col col-40" ng-hide="selectedDept.product_catg_name == null ">
+          <label>
+              <!--<div class="input-label">
+                Sub Product
+              </div>-->
+              <label class="select">
+                  <select ng-model="subCatg" 
+                          ng-options="dept as dept.product_sub_catg_name for dept in productCatg | unique:'product_sub_catg_name' | orderBy:'product_sub_catg_name' | filter:selectedDept.product_catg_name"
+                          class="item item-select item-positive" ng-click="getProductsForID(selectedDept)"
+                          >
+                          <option value="" disabled default selected>Sub products category</option>
+                  </select>
+                </label>
+            </label>
+        </div>
+        <div class="spacer" style="width: 10px;"></div>
+    </ion-header-bar>
+    <ion-content class="has header has-subheader">
+      <!--MainForm->I = {{mainform.$invalid}};V= {{mainform.$valid}}-->
+       <!--CHECKBOX=>{{checkboxes}}<BR>
+       mainform.rowProductForm json->I = {{mainform.rowProductForm | json}}<br>
+       mainform.rowProductForm1 json->I = {{mainform.rowProductForm1 | json}}<br>-->
+       <!--//PRODUCTS==>{{products}}-->
+        <!--MainForm->I = {{mainform.$invalid}};V= {{mainform.$valid}}<br>
+        MainForm json->I = {{mainform | json}}<br>-->
+        <!--MainForm Dirty->D = {{mainform.$dirty}};P= {{mainform.$pristine}}<br>
+        Btn -> {{btnEnabled}}<br>
+        row prod form status -> D={{mainform.rowProductForm.$dirty}} ; v={{mainform.rowProductForm.$valid}}<br>
+        ord qty ->{{mainform.rowProductForm.order_qty | json }}<br>
+        ord qty1 ->{{mainform.rowProductForm.order_qty1 | json }}-->
+        <!--{{checkboxes.prodid}}-{{checkboxes.prodid.length}}-{{checkboxes.length}}-->
+      <!--<div class="item item-body" style="height: 50px;">
+          <img class="full-image" ng-src="{{shopURL}}"> 
+      </div>-->
+      <div class="spacer" style="height: 20px;"></div>
+      <div ng-hide="subCatg.product_sub_catg_id == null ">
+          <ion-item class="row" ng-repeat="row in products | filter:subCatg.product_sub_catg_id" ng-if="$index % 2 === 0" >
+           <!--Form->Inv={{rowProductForm.$invalid}} ; v={{rowProductForm.$valid}}-->
+            <div class="col col-50 list inset" style="border: 1px" ng-if="$index < products.length" ng-form='rowProductForm' name="rowProductForm">
+              <!--{{productImageUrl}}{{row.product_id}}-->
+                <!--First Row of displaying Item Name, Product ID and description-->
+                <div class="row item item-stable item-divider" >
+                    <div class="col col-75" ng-click="more(row)">
+                        {{products[$index].product_name}} 
+                        <span class="item-note" >[ ID: {{products[$index].product_id}} ]</span>
+                        <div class="item-text-wrap descEllip"> {{ products[$index].product_desc }}  </div>
+                    </div> 
+                    <div class="col col-25"> 
+                        <label class="checkbox checkbox-dark"> 
+                            <input type="checkbox"  checklist-model="checkboxes.prodid" 
+                            checklist-value="products[$index].product_id" checklist-change="checkBoxClicked([$index])" >  <!--ng-change="checkBoxChange(products[$index].PROD_MIN_QTY,products[$index].product_id)"-->
+                            <!--<input type="checkbox"  ng-model="products[$index].checked" 
+                            ng-checked="{{products[$index].checked}}" ng-change="checkBoxClicked(products[$index].order_qty)" >--> 
+                        </label> 
+                    </div>  
+                </div>
+                <!--Second row of displaying Image , price and lot size-->
+                <div class="row item item-body">
+                    <img class="full-image" ng-src="{{productImageUrl}}{{products[$index].product_id}}/index/0"> 
+                   <!-- <p>
+                        <span class="subdued royal">
+                           Lot Size:{{ products[$index].product_min_qty}}
+                        </span>
+                        
+                        <span class="subdued royal">
+                            Price:{{products[$index].product_price | currency:"&#8377;" : 0}}
+                        </span>
+                    </p>-->
+                </div>
+                <!--row to capture Quantity-->
+                <div class="row row-bottom item item-divider">
+                                <span class="subdued royal">
+                                   Lot Size:{{ products[$index].product_min_qty}}
+                                </span>
+
+                                <span class="subdued royal">
+                                    Price:{{products[$index].product_price | currency:"&#8377;" : 0}}
+                                </span>
+                        </div>
+                <div class="row" ng-show="products[$index].checked" style="padding-left:0px; padding-top:0px;padding-right:0px">
+                    <label class="row item item-input"  style="padding-left:0px; padding-top:0px;padding-right:0px" ng-class="{ 'has-error-lr' : rowProductForm.order_qty.$dirty && rowProductForm.order_qty.$invalid, 'valid' : rowProductForm.order_qty.$valid}">
+                      <span class="label positive" style="padding-left:0px; padding-right:0px">Qty: </span>
+                      <br><span class="item-note" ng-show="rowProductForm.order_qty.$invalid" style="color:maroon">(min 1) </span>
+                      <input type="number" ng-model="products[$index].order_qty" name="order_qty" min="1" maxlength="4" ng-pattern="onlyNumbers" required><!--ng-change="numberFldClicked(products[$index].order_qty)"-->
+                        
+                    </label>
+                    <!--<div ng-messages="rowProductForm.quantity.$invalid.pattern" style="color:maroon" role="alert">
+                            <div ng-message="required">Qty should be min 1</div>
+                        </div>-->
+                </div>
+                <!--<div class="row"  style="padding-left:0px; padding-top:0px;padding-right:0px">
+                    <label class="col col-80 item item-input"  style="padding-left:0px; padding-top:0px;padding-right:0px">
+                      <span class="label positive" style="padding-left:0px; padding-right:0px">Price: </span>
+                      {{products[$index].product_price | currency:"&#8377;" : 0}}
+                    </label>
+                     <label class="col col-20 item item-input"  style="padding-left:0px; padding-top:0px;padding-right:0px">
+                      <span class="label positive" style="padding-left:0px; padding-right:0px">Lot Size: </span>
+                      {{products[$index].product_min_qty}}
+                    </label>
+                </div>-->
+                <!--Third row of displaying price and Lot Size-->
+                <!--<div class="row">
+                <div class="col"> 
+                 <div class="item item-input" style="padding-left:2px;">
+                       <span class="item input-label" style="padding-left:2px;width: 5px">Qty: </span>
+                       <span class="item-input" style=""> <input type="number" ng-model="products[$index].order_qty" value='{{ products[$index].order_qty}}' min="0" max="4" name=""></span>
+                </div>
+             </div></div>-->
+            
+              </div>
+
+                <div class="col col-50 list inset" style="border:1px" ng-if="$index+1 < products.length" ng-form='rowProductForm1' name="rowProductForm1">
+                       <!--First Row of displaying Item Name, Product ID and description-->
+                        <div class="row item item-stable item-divider">
+                            <div class="col col-75" ng-click="more()">
+                                {{products[$index+1].product_name}} 
+                                <span class="item-note" >[ ID: {{products[$index+1].product_id}} ]</span>
+                                <div class="item-text-wrap descEllip"> {{ products[$index+1].product_desc }}  </div>
+                            </div> 
+                            <div class="col col-25"> 
+                                <label class="checkbox checkbox-dark"> 
+                                 <input type="checkbox"  checklist-model="checkboxes.prodid" 
+                            checklist-value="products[$index+1].product_id" checklist-change="checkBoxClicked([$index+1])" >
+                                <!--<input type="checkbox"  ng-model="products[$index+1].checked" 
+                            ng-checked="{{products[$index+1].checked}}" ng-change="checkBoxClicked(products[$index+1].order_qty)" >-->  
+                                </label> 
+                            </div>  
+                        </div>
+                        <!--Second row of displaying Image , price and lot size-->
+                        <div class="row item item-body">
+                            <img class="full-image" ng-src="{{productImageUrl}}{{products[$index+1].product_id}}/index/0"> 
+                            
+                        </div>
+                
+                        <!--row to capture Quantity-->
+                        <div class="row  row-bottom item item-divider">
+                                <span class="subdued royal">
+                                   Lot Size:{{ products[$index+1].product_min_qty}}
+                                </span>
+
+                                <span class="subdued royal">
+                                    Price:{{products[$index+1].product_price | currency:"&#8377;" : 0}}
+                                </span>
+                        </div>
+                        <div class="row" ng-show="products[$index+1].checked" style="padding-left:0px; padding-top:0px;padding-right:0px">
+                            <label class="row item item-input"  style="padding-left:0px; padding-top:0px;padding-right:0px" ng-class="{ 'has-error-lr' : rowProductForm1.order_qty1.$dirty && rowProductForm1.order_qty1.$invalid, 'valid' : rowProductForm1.order_qty1.$valid}">
+                              <span class="label positive" style="padding-left:0px; padding-right:0px">Qty: </span>
+                              <br><span class="item-note" ng-show="rowProductForm1.order_qty1.$invalid" style="color:maroon">(min 1) </span>
+                              <input type="number" ng-model="products[$index+1].order_qty" name="order_qty1" min="1" maxlength="4" ng-pattern="onlyNumbers" required>
+                            </label>
+                        </div>
+                </div>
+            </div>
+
+          </ion-item>
+      </div>
+      </ion-content>
+      <div ng-hide="checkboxes.prodid.length == 0 ">
+      <!--<div ng-show="mainform.$valid && btnEnabled">-->
+      <!--<div ng-show="mainform.$valid && mainform.$dirty">-->
+          <ion-footer-bar class="button-bar bar-balanced">
+            <button class="button button-clear" type="submit" ng-disabled="mainform.$invalid" href="#/app/buyer/buyProducts/buyOrderSummary" ng-click="saveSelectedProducts(subCatg.product_sub_catg_name)">Proceed</button>
+          </ion-footer-bar>
+      </div>
+      </form>
+</ion-view>

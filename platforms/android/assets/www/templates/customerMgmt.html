@@ -1,0 +1,10 @@
+<ion-view view-title="Buyer Category Screen" ><!--hide-back-button="true"-->
+    <ion-nav-view name="menuContent"></ion-nav-view>
+    <ion-content >
+        <ion-item ng-repeat="row in buyersList" >
+            <div class="item" >
+                <span class="label positive" > {{row.name | uppercase}}
+            </div>
+        </ion-item>
+    </ion-content>
+</ion-view>

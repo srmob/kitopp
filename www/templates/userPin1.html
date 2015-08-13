@@ -1,0 +1,71 @@
+<ion-view title="Pin Code" cache-view="false">
+    <ion-header-bar class="bar-dark" align-title="center">
+      <h1 class="title"><img class="dark title-image" data-ng-src="img/Kitaki.jpg"></h1>
+    </ion-header-bar>
+    <ion-content class="center-vertical">
+        <div class="spacer" style="height: 80px;"></div>
+           <div>
+            <div class="row" style="text-align: center">
+                <div class="col col-10 col-offset-10">
+                    <input type="password"   value="{{passcode.substring(0, 1)}}" disabled>
+                </div>
+                <div class="col col-10 col-offset-10">
+                    <input type="password" value="{{passcode.substring(1, 2)}}" disabled>
+                </div>
+                <div class="col col-10 col-offset-10">
+                    <input type="password"  value="{{passcode.substring(2, 3)}}" disabled>
+                </div>
+                <div class="col col-10 col-offset-10">
+                    <input type="password"  value="{{passcode.substring(3, 4)}}" disabled>
+                </div>
+            </div>
+        </div>
+        <div style="margin-top: 50px">
+            <div class="row">
+                <div class="col col-20 col-offset-20">
+                    <button class="button button-outline  button-assertive button-stretch " style="border-radius: 100px;" ng-click="add(1)">1</button>
+                </div>
+                <div class="col col-20">
+                    <button class="button button-outline button-assertive button-stretch " style="border-radius: 100px;" ng-click="add(2)">2</button>
+                </div>
+                <div class="col col-20">
+                    <button class="button button-outline button-assertive button-stretch " style="border-radius: 100px;" ng-click="add(3)">3</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-20 col-offset-20">
+                    <button class="button button-outline button-assertive button-stretch " style="border-radius: 100px;" ng-click="add(4)">4</button>
+                </div>
+                <div class="col col-20">
+                    <button class="button button-outline button-assertive button-stretch " style="border-radius: 100px;" ng-click="add(5)">5</button>
+                </div>
+                <div class="col col-20">
+                    <button class="button button-outline button-assertive button-stretch " style="border-radius: 100px;button-outline " ng-click="add(6)">6</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-20 col-offset-20">
+                    <button class="button button-outline button-assertive button-stretch " style="border-radius: 100px;" ng-click="add(7)">7</button>
+                </div>
+                <div class="col col-20">
+                    <button class="button button-outline button-assertive button-stretch " style="border-radius: 100px;" ng-click="add(8)">8</button>
+                </div>
+                <div class="col col-20">
+                    <button class="button button-outline button-assertive button-stretch " style="border-radius: 100px;" ng-click="add(9)">9</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-20 col-offset-20">
+                   
+                        <button class="button icon ion-refresh button-outline button-assertive button-stretch " style="border-radius: 100px;"ng-click="clear()"></button>
+                </div>
+                <div class="col col-20">
+                    <button class="button button-outline button-assertive button-stretch " style="border-radius: 100px;"ng-click="add(0)">0</button>
+                </div>
+                <div class="col col-20">
+                    <button class="button icon ion-backspace-outline button-outline button-assertive button-stretch" style="border-radius: 100px;" ng-click="delete()"></button>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

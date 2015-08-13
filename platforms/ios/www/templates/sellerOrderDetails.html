@@ -1,0 +1,66 @@
+<ion-view view-title="{{ shopName }} - Order Summary" >
+     <!-- <ion-nav-view name="menuContent"></ion-nav-view>-->
+
+   
+    <ion-content padding="true" scroll="false">
+       <div style="height: 400px"> 
+     <ion-scroll direction="yx" style="width: 100% ;height: 100% !important;" scrollbar-x="false" delegate-handle="head" zooming="true" on-scroll="scrollMirror('list', 'head')">
+        <div class="item item-header item-calm row row-item min-705">
+          <div class="col col-left col-sep min-10 item-text-wrap"> Select</div>
+          <div class="col col-left col-sep min-20 item-text-wrap"> Image</div>
+          <div class="col col-left col-sep min-10 item-text-wrap">Item ID</div>
+          <div class="col col-left col-sep min-50 item-text-wrap">Item Desc</div>
+          <div class="col col-left col-sep min-10 item-text-wrap">Lot Size</div>
+          <div class="col col-left col-sep min-10 item-text-wrap">Qty</div>
+          <div class="col col-left col-sep min-20 item-text-wrap">Price</div>
+          <div class="col col-left col-sep min-20 item-text-wrap">Amount</div>
+        </div>
+
+        <div class="item row row-item  min-705" ng-repeat="row in orderDetails | orderBy: '-order_id' : reverse">
+                 <div class="col col-left col-sep min-10 item-text-wrap"> <label class="checkbox checkbox-dark"> <input type="checkbox" ng-model="row.checked" ng-checked="{{row.checked}}" > </label><!--checklist-model="row.checked" checklist-value="row.checked"-->
+                 </div>
+                 <div class="col col-left col-sep min-20 item-text-wrap"> <img data-ng-src="{{ row.product_img_id1}}"></div>
+                  <div class="col item-dark col-left col-sep min-10 item-text-wrap" >{{row.product_id}}-{{row.order_id}}</div>
+                  <div class="col item-dark col-left col-sep min-20 item-text-wrap" >{{row.product_name}}</div>
+                  <div class="col item-dark col-left col-sep min-50 item-text-wrap">{{row.product_desc}}</div>
+                  <div class="col item-dark col-left col-sep min-10 item-text-wrap"><input type="number" ng-model="row.order_qty" value='{{ row.order_qty }}'></div>
+                  <div class="col item-dark col-left col-sep min-50">{{row.product_price | currency}}</div>
+                  <div class="col item-dark col-left col-sep min-50">{{row.order_qty * row.product_price | currency }}</div>
+                  {{ row.product_img_id1}}
+          </div>
+        </ion-scroll>
+        </div>  order =  {{orderDetails}}</ion-content>
+    <div class="spacer" style="height: 0px;"></div>
+    <div class="list" style="position: absolute; bottom: 20px; width: 100%">
+        <label class="item item-input">
+        <span class="input-label">Customer Name:</span>
+          {{ buyerDetails[0].first_name }}{{ buyerDetails[0].last_name }}
+        </label>
+        <label class="item item-input">
+        <span class="input-label">Customer Phone #:</span>
+          {{ buyerDetails[0].phone_num }}
+        </label>         
+        <label class="item item-input">
+        <span class="input-label">Customer TIN #:</span>
+          {{ buyerDetails[0].tin_num }}
+        </label>
+    </div>
+ 
+    <!--ion-footer-bar align-title="left" class="button-bar bar-balanced">
+        <div class="buttons">
+             <button class="button button-clear" ng-click="remindOrder()">Remind</button>
+        </div>
+        <div class="buttons"> 
+            <button class="button button-clear"  ng-click="processOrder()">Process</button> 
+        </div>
+    </ion-footer-bar>-->
+    <ion-footer-bar align-title="left" class="bar-stable">
+      <div class="buttons button-balanced" ng-click="remindOrder()">
+        <button class="button button-dark">Remind</button>
+      </div>
+      <h1 class="title"></h1>
+      <div class="buttons button-balanced" ng-click="processOrder(orderDetails)">
+        <button class="button button-balanced">Process</button>
+      </div>
+    </ion-footer-bar>
+</ion-view>

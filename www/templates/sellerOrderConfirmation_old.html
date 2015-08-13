@@ -1,0 +1,74 @@
+<ion-view view-title="Order Confirmation and Shipping Details" >
+     <!-- <ion-nav-view name="menuContent"></ion-nav-view>-->
+
+       <ion-content padding="true" scroll="false">
+       <div style="height: 200px"> <!--{{userType}} =={{orderDetails}} <-> {{orderDetails.items}} - {{$scope.orderItems}}--> <!--{{orderItemDetails}}-->
+     <ion-scroll direction="yx" style="width: 100% ;height: 100% !important;" scrollbar-x="false" delegate-handle="head" zooming="true" on-scroll="scrollMirror('list', 'head')">
+        <div class="item item-header item-calm row row-item min-705">
+          <div class="col col-left col-sep min-5 item-text-wrap">Item ID</div>
+          <div class="col col-left col-sep min-50 item-text-wrap">Item Desc</div>
+          <div class="col col-left col-sep min-10 item-text-wrap">Lot Size</div>
+          <div class="col col-left col-sep min-20 item-text-wrap">Price</div>
+          <div class="col col-left col-sep min-10 item-text-wrap">Qty</div>
+          <div class="col col-left col-sep min-20 item-text-wrap">Amount</div>
+        </div>
+
+        <div class="item row row-item  min-705" ng-repeat="row in orderDetails | filter:{checked:true}|orderBy: '-order_id' : reverse">
+          <div class="col item-dark col-left col-sep min-5 item-text-wrap" >{{row.product_id}}</div>
+          <div class="col item-dark col-left col-sep min-50 item-text-wrap">{{row.product_desc}}</div>
+          <div class="col item-dark col-left col-sep min-10 item-text-wrap">{{ row.order_qty }}</div>
+          <div class="col item-dark col-left col-sep min-20">{{row.product_price | currency:$:0}}</div>
+          <div class="col item-dark col-left col-sep min-10 item-text-wrap">{{ row.order_qty }}</div>
+          <div class="col item-dark col-left col-sep min-20">{row.order_qty * row.product_price | currency:$:0 }</div>
+          </div>
+        </ion-scroll>
+        </div>   
+        </ion-content>
+        <div class="spacer" style="height: 0px;"></div>
+        <div class="list" style="position: absolute; bottom: 20px; width: 100%">
+          <label class="item item-input">
+            <span class="input-label">Customer Name:</span>
+              {{buyerDetails[0].first_name}} {{buyerDetails[0].last_name}}
+          </label>
+          <label class="item item-input">
+            <span class="input-label">Customer Phone #:</span>
+              {{buyerDetails[0].phone_num}}
+          </label>         
+         <label class="item item-input">
+            <span class="input-label">Customer TIN #:</span>
+             {{buyerDetails[0].tin_num}}
+          </label>
+         <label class="item item-input">
+            <span class="input-label">Customer ST #:</span>
+              {{buyerDetails[0].st_num}}
+          </label> 
+        <label class="item item-input">
+            <span class="input-label">Customer CST #:</span>
+              {{buyerDetails[0].cst_num}}
+          </label>    
+           
+        <label class="item item-input">
+            <span class="input-label">Shipping Address:</span>
+              {{buyerDetails[0].shipping_address}}
+          </label>
+         <label class="item item-input">
+            <span class="input-label">Expected Delivery:</span>
+              {{GHI}}
+          </label>     
+        <label class="item item-input">
+            <span class="input-label">Tracking Number#:</span>
+              {{GHI}}
+          </label>
+        </div>
+ 
+    <ion-footer-bar align-title="left" class="bar-stable">
+      <div class="buttons button-energized" ng-click="emailOrder(buyerDetails[0])">
+        <button class="button button-calm">Email</button>
+      </div>
+      <h1 class="title"></h1>
+      <div class="buttons button-royal" ng-click="">
+        <button class="button button-balanced">Print</button>
+      </div>
+    </ion-footer-bar>
+
+</ion-view>

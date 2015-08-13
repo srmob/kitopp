@@ -1,0 +1,125 @@
+<ion-view view-title=" Order # {{orderId}} Summary" cache-view="false">
+     <!-- <ion-nav-view name="menuContent"></ion-nav-view>-->
+    <form name="mainSellerOrderDetailsForm">
+        <ion-content padding="true" scroll="true" class="padding scroll-bg">
+              <!-- OS = {{orderStatus}} - {{orderDetails[0].order_status}}-->
+               <div ng-show="!orderStatus" class="bar bar-header bar-assertive">
+                     <span class="label">Order is '{{orderDetails[0].order_status}}'</span>
+                     <button class="button button-clear" ng-click=""><i class="icon ion-ios-information-outline"></i></button>
+                </div>
+                <div class="spacer" style="height: 30px;" ng-show="!orderStatus" ></div>
+                <ion-scroll direction="y" style="width: 100% ;height: 100% !important; " overflow-scroll="false"> 
+                    <div class="list" collection-repeat="row in orderItemDetails" ng-form="rowOrderForm" name="rowOrderForm"> 
+                        <div class="item  item-avatar-right item-clear">
+                            <img  ng-src="{{productImageUrl}}{{row.product_id}}/index/0"> 
+                            <label class="checkbox checkbox-dark" ng-if="orderStatus"> 
+                                <!--<input type="checkbox" ng-model="row.checked" ng-checked="{{row.checked}}" ng-change="updateCheckFlag(row.checked)">-->
+                                <input type="checkbox" checklist-model="orderChkbox.item_id" 
+                                checklist-value="row.item_id" checklist-change="OrderedItemCheckBoxClicked($index,row)"> <!--checklist-change="OrderedItemCheckBoxClicked([$index])"-->
+                            </label>
+                            <h2>
+                                {{row.product_name}} 
+                                <span class="item-note" >[ ID: {{row.product_id | uppercase}} ]</span>
+                            </h2>
+                            <!--{{row.product_id}}-->
+                            <br><div class="item-text-wrap">{{row.product_description }}</div>
+                            <br><span class="subdued positive">    Lot Size: </span>
+                            <span class="subdued dark">
+                             <b>{{row.lot_size}}</b></span>
+                            <span class="subdued positive">        Price: </span>
+                            <span class="subdued dark">  <b>{{row.price | currency:"&#8377;" : 2 }}</b></span>
+                        </div>
+                        <div class="item tabs tabs-secondary item-stable" ng-if="orderStatus && row.checked">
+                            <label class="tab-item item-input" ng-class="{ 'has-error-lr' : rowOrderForm.order_qty.$dirty && rowOrderForm.order_qty.$invalid, 'valid' : rowOrderForm.order_qty.$valid}"> 
+                                <span class="label positive" style="padding-left:0px; padding-right:0px"> Qty:</span>
+                                <br><span class="item-note" ng-show="rowOrderForm.order_qty.$invalid" style="color:maroon">(min 1) </span>
+                                <input type="number" ng-model="row.order_qty" value='{{row.order_qty}}' name="order_qty" min="1" maxlength="4" ng-pattern="onlyNumbers" required>
+                            </label>
+
+                            <span class="tab-item">
+                                <span class="label positive" style="padding-left:0px; padding-right:0px">Estimate:</span>
+                                <span class="subdued dark">   {{ row.price * row.order_qty | currency:"&#8377;" : 2}}</span>                                        </span>
+                        </div>
+                        <div class="item tabs tabs-secondary item-stable" ng-if="orderStatus && !row.checked">
+                            <label class="tab-item item-input" ng-class="{ 'has-error-lr' : rowOrderForm.order_qty.$dirty && rowOrderForm.order_qty.$invalid, 'valid' : rowOrderForm.order_qty.$valid}"> 
+                                <span class="label positive" style="padding-left:0px; padding-right:0px"> Qty:</span>
+                                <span class="subdued dark"><b>{{ row.order_qty }}</b></span>
+                            </label>
+
+                            <span class="tab-item">
+                                <span class="label positive" style="padding-left:0px; padding-right:0px">Estimate:</span>
+                                <span class="subdued dark">   {{ row.price * row.order_qty | currency:"&#8377;" : 2}}</span>
+                            </span>
+                        </div>
+                          <!--<div class="item tabs tabs-secondary assertive" ng-if="orderStatus" >
+                            <span class="tab-item item-input">
+                                <label class="item-input item-input-calm" > 
+                                     <span class="input-label">Qty:</span> 
+                                    <input type="number" name="a" ng-model="row.order_qty  " value='{{ row.order_qty}}' required ng-pattern="/^[1-9]/" >
+                                    <span ng-show="sod.a.$error.pattern" ng-class="{'has-error-lr': sod.a.$error}">Not a valid number!</span>
+                                    <div class="form-errors" ng-show="sod.a.$error.pattern" ></div>
+                                </label>
+
+                                //Below label to be commented
+                                <label class="item item-assertive" > 
+                                     <span class="tab-item">Qty: {{ row.order_qty   }} </span> 
+                                </label>
+                            </span>
+                            <span class="tab-item">
+                              <b>Estimate:{{ row.price * row.order_qty   | currency:"&#8377;" : 0 }} </b>
+                            </span>
+                          </div> -->
+                          <div class="item tabs tabs-secondary item-clear" ng-if="!orderStatus" >
+
+                            <span class="tab-item" >
+                                <b><span class="label positive" style="padding-left:0px; padding-right:0px">Qty:</span></b>    
+                                <span class="subdued dark"><b>{{ row.order_qty }}</b></span>
+                            </span>
+                            <span class="tab-item">
+                              <b><span class="label positive" style="padding-left:0px; padding-right:0px">Estimate:</span>                              <span class="subdued dark">   {{ row.price * row.order_qty | currency:"&#8377;" : 2}}</span>
+                              </b>
+                            </span>
+                          </div>        
+
+                    </div> 
+                </ion-scroll>
+
+        </ion-content><!--<div class="spacer" style="height: 10px;"></div>
+        <div class="list card" style="position: absolute; bottom: 6px; width: 100%">
+            <div class="item item-avatar">
+                <img src="avatar.jpg">
+                <h2>
+                    <i class="icon ion-ios-person"></i>
+                    {{orderDetails[0].customer_name }}
+                </h2>
+                    <i class="icon ion-ios-telephone"></i>
+                    {{ orderDetails[0].customer_phone }}<br>
+                    TIN # :<u>{{ orderDetails[0].customer_tin }}</u>
+            </div>-->
+        </div>
+
+
+
+        <!--ion-footer-bar align-title="left" class="button-bar bar-balanced">
+            <div class="buttons">
+                 <button class="button button-clear" ng-click="remindOrder()">Remind</button>
+            </div>
+            <div class="buttons"> 
+                <button class="button button-clear"  ng-click="processOrder()">Process</button> 
+            </div>
+        </ion-footer-bar>-->
+
+    <!--      <div class="buttons button-balanced" ng-click="remindOrder()">
+            <button class="button button-dark">Remind</button>
+          </div>-->
+          <!--<h1 class="title"></h1>
+                <div class="buttons button-balanced" ng-hide="checkStatus == false" ng-click="processOrder(orderDetails,orderDetails[0].order_id)">
+                    <button class="button button-balanced">Process</button>
+                </div>-->
+        <div ng-hide="orderChkbox.item_id.length == 0 ">
+          <ion-footer-bar class="button-bar bar-balanced">
+            <button class="button button-clear" type="submit" ng-disabled="mainSellerOrderDetailsForm.$invalid" ng-click="processOrder(orderDetails,orderDetails[0].order_id)">Process</button>
+          </ion-footer-bar>
+        </div>   
+   </form>
+</ion-view>

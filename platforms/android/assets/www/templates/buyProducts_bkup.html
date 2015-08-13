@@ -1,0 +1,79 @@
+<ion-view view-title="{{shopName}} " cache-view="false">
+    <ion-header-bar class="bar-subheader row">
+        <div class="col col-40">
+            <label >
+              <!--<div class="input-label">
+                Products
+              </div>-->{{ $stateParams.sellerName }}
+              <select ng-model="selectedDept" 
+                      ng-options="dept.product_catg_name for dept in productCatg | unique:'product_catg_name' | orderBy:'product_catg_name'"
+                      class="item item-select item-calm">
+                      <option value="" disabled default selected>Products category</option>
+              </select>
+            </label>
+        </div> <div class="spacer" style="width: 20px;"></div>
+        
+        <div class="col col-40" ng-hide="selectedDept.product_catg_name == null ">
+          <label>
+              <!--<div class="input-label">
+                Sub Product
+              </div>-->
+              <label class="select select-assertive">
+                  <select ng-model="subCatg" 
+                          ng-options="dept as dept.product_sub_catg_name for dept in productCatg | unique:'product_sub_catg_name' | orderBy:'product_sub_catg_name' | filter:selectedDept.product_catg_name"
+                          class="item item-select item-calm" ng-click="getProductsForID(selectedDept)"
+                          >
+                          <option value="" disabled default selected>Sub products category</option>
+                  </select>
+                </label>
+            </label>
+        </div>
+    </ion-header-bar>
+    <ion-content class="has header has-subheader">
+        <!--{{checkboxes.prodid}}-{{checkboxes.prodid.length}}-{{checkboxes.length}}-->
+      <div class="spacer" style="height: 20px;"></div>
+      <div ng-hide="subCatg.product_sub_catg_id == null ">
+      <ion-item class="row" ng-repeat="row in products | filter:subCatg.product_sub_catg_id" ng-if="$index % 2 === 0">
+        <div class="col col-50" style="border: 1px" ng-if="$index < products.length" >
+          <div class="row item-divider item-assertive">
+            <div class="col col-75 item-text-wrap">{{products[$index].product_name}} </div> 
+            <div class="col col-25"> <label class="checkbox checkbox-dark"> <input type="checkbox"  checklist-model="checkboxes.prodid" checklist-value="products[$index].product_id"> </label> </div>  
+          </div>
+        
+          <div class="row">
+            <div class="col col-60"> <img data-ng-src="{{ products[$index].product_img_id1}}"> </div> 
+            <div class="col col-40"> 
+              ID: {{ products[$index].product_id }}<br>Lot Size: {{ products[$index].product_min_qty}}
+              <br>Qty:<input type="number" ng-model="products[$index].order_qty" value='{{ products[$index].order_qty}}'><br>Price : {{products[$index].product_price}} <br> 
+            </div>  
+          </div>
+          <div class="row item-divider">
+              <div class="col item-text-wrap"> {{ products[$index].product_desc }} <button class="button button-small button-icon icon ion-more" ng-click="more()"></button></div> 
+          </div>
+        </div>
+      
+        <div class="col col-50" ng-if="$index+1 < products.length" >
+          <div class="row item-divider">
+            <div class="col col-75 item-text-wrap"> {{products[$index+1].product_name}} </div> 
+            <div class="col col-25"><label class="checkbox checkbox-dark"> <input type="checkbox" checklist-model="checkboxes.prodid" checklist-value="products[$index+1].product_id"> </label></div>  
+          </div>
+        
+          <div class="row">
+            <div class="col col-60"> <img data-ng-src="{{ products[$index].product_img_id1 }}"> </div> 
+            <div class="col col-40"> 
+              ID: {{ products[$index+1].product_id1 }}<br>Lot Size: {{ products[$index+1].product_min_qty}}
+              <br>Qty: <input type="number" ng-model="products[$index+1].order_qty" value='{{ products[$index+1].order_qty}}'><br>Price : {{products[$index+1].product_price}} <br> 
+            </div>  
+          </div>
+          <div class="row item-divider">
+              <div class="col item-text-wrap"> {{ products[$index+1].product_desc }} <button class="button button-small button-icon icon ion-more " ng-click="more()"></button></div> 
+          </div>
+        </div>
+        
+      </ion-item></div>
+      </ion-content>
+      <div ng-hide="checkboxes.prodid.length == 0 ">
+      <ion-footer-bar class="button-bar bar-calm">
+        <button class="button button-clear"  href="#/app/buyer/buyProducts/buyOrderSummary" ng-click="saveSelectedProducts()">Proceed</button>
+      </ion-footer-bar></div>
+</ion-view>
